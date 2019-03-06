@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+import CoinCard from '../CoinCard'
+import './app.css'
+
 const App = () => {
 
   const [coins, setCoins] = useState(null)
@@ -18,9 +21,9 @@ const App = () => {
   }, [])
 
   return (
-    <div>
+    <div className="cards">
       {coins && coins.map(coin => (
-        <p>{coin.name}</p>
+        <CoinCard coin={coin}/>
       ))}
     </div>
   )

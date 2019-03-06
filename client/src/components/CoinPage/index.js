@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CoinPage = () => {
+const CoinPage = (selectedCoin) => {
   return (
     <div>
       CoinPage

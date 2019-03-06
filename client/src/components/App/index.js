@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { Route } from 'react-router-dom'
 
-import CoinCard from '../CoinCard'
+import CoinsList from '../CoinsList'
+import CoinPage from '../CoinPage'
 
-import './home.css'
 import data from '../../data'
 
 const App = () => {
@@ -63,17 +64,27 @@ const App = () => {
   return (
     <div>
 
-      <div className="header">
-        <label htmlFor="coin-name">Search A Coin</label>
-        <input type="text" name="coin-name" onChange={handleNameInput} value={inputName}/>
-      </div>
-      <div className="cards">
-        {coins && coins.map(coin => (
-          <CoinCard coin={coin} key={coin.id}/>
-        ))}
-      </div>
-      <button onClick={sortByName}>sort by name</button>
-      <button onClick={sortByRank}>sort by rank</button>
+      <Route 
+        exact path="/" 
+        render={() => (
+          <CoinsList  
+            coins={coins} 
+            inputName={inputName} 
+            sortByName={sortByName} 
+            sortByRank={sortByRank} 
+            handleNameInput={handleNameInput} 
+          />
+        )}
+      />
+
+
+
+      <Route 
+        path="/coinpage"
+        render={() => (
+          <CoinPage />
+        )}
+      />
 
     </div>
   )

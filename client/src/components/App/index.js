@@ -33,7 +33,7 @@ const App = () => {
   }
 
   const searchCoin = (value) => {
-    let coinsCopy = [...coins]
+    let coinsCopy = [...data]
 
     if (value !== '') {
       let newCoins = coinsCopy.filter(coin => coin.name.toUpperCase().includes(value.toUpperCase()))

@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 
 import CoinCard from '../CoinCard'
-import './app.css'
+
+import './home.css'
 import data from '../../data'
 
 const App = () => {
 
   const [coins, setCoins] = useState(data)
   const [inputName, setInputName] = useState('')
+  const [selectedCoin, setSelectedCoin] = useState(null)
 
   const handleNameInput = (e) => {
     setInputName(e.target.value)
@@ -46,7 +48,7 @@ const App = () => {
   }
 
 
-  const fetchCoins = async () => {
+  const initialCoinsFetch = async () => {
     const result = await fetch(`/coins`)
       .then(res => res.json())
       .catch(err => console.error(err))
@@ -55,7 +57,7 @@ const App = () => {
   }
 
   /*useEffect(() => {
-    fetchCoins()
+    initialCoinsFetch
   }, [])*/
 
   return (
@@ -72,6 +74,7 @@ const App = () => {
       </div>
       <button onClick={sortByName}>sort by name</button>
       <button onClick={sortByRank}>sort by rank</button>
+
     </div>
   )
 }

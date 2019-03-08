@@ -10,7 +10,7 @@ const App = () => {
 
   const [coins, setCoins] = useState(data)
   const [inputName, setInputName] = useState('')
-  const [selectedCoin, setSelectedCoin] = useState(null)
+  const [selectedCoin, setSelectedCoin] = useState({name: 'coin'})
 
   const handleNameInput = (e) => {
     setInputName(e.target.value)
@@ -48,6 +48,14 @@ const App = () => {
     }
   }
 
+  const handleCoinSelect = (e) => {
+    e.stopPropagation()
+    const id = e.currentTarget.attributes.getNamedItem('data-id').value
+    const selected = coins.find(coin => coin.id == id)
+    setSelectedCoin(selected)
+  }
+
+
 
   const initialCoinsFetch = async () => {
     const result = await fetch(`/coins`)
@@ -65,7 +73,7 @@ const App = () => {
     <div>
 
       <Route 
-        exact path="/" 
+        exact path="/coins" 
         render={() => (
           <CoinsList  
             coins={coins} 
@@ -73,6 +81,7 @@ const App = () => {
             sortByName={sortByName} 
             sortByRank={sortByRank} 
             handleNameInput={handleNameInput} 
+            handleCoinSelect={handleCoinSelect}
           />
         )}
       />
@@ -80,9 +89,9 @@ const App = () => {
 
 
       <Route 
-        path="/coinpage"
+        path={`/coins/${selectedCoin.name}`}
         render={() => (
-          <CoinPage />
+          <CoinPage selectedCoin={selectedCoin}/>
         )}
       />
 

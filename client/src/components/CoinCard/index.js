@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 
 import './coincard.css'
 
-const CoinCard = ({coin}) => {
+const CoinCard = ({coin, handleCoinSelect}) => {
   let date = new Date(coin.date_added)
   return (
-    <Link to="/coinpage" className="card">
+    <Link to={`/coins/${coin.name}`} className="card" data-id={coin.id} onClick={handleCoinSelect}>
       <ul>
         <li>name: {coin.name}</li>
         <li>id: {coin.id}</li>

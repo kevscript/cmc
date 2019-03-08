@@ -1,9 +1,10 @@
 import React from 'react'
 
-const CoinPage = (selectedCoin) => {
+const CoinPage = ({selectedCoin}) => {
   return (
     <div>
       CoinPage
+      <p>{selectedCoin ? selectedCoin.name : ''}</p>
     </div>
   )
 }

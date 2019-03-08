@@ -3,9 +3,8 @@ import React, { useState, useEffect } from 'react'
 import CoinCard from '../CoinCard'
 
 import './coinslist.css'
-import data from '../../data'
 
-const CoinsList = ({coins, handleNameInput, inputName, sortByName, sortByRank}) => {
+const CoinsList = ({coins, handleNameInput, inputName, sortByName, sortByRank, handleCoinSelect}) => {
   return (
     <div>
 
@@ -15,7 +14,7 @@ const CoinsList = ({coins, handleNameInput, inputName, sortByName, sortByRank}) 
       </div>
       <div className="cards">
         {coins && coins.map(coin => (
-          <CoinCard coin={coin} key={coin.id}/>
+          <CoinCard coin={coin} key={coin.id} handleCoinSelect={handleCoinSelect}/>
         ))}
       </div>
       <button onClick={sortByName}>sort by name</button>

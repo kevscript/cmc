@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Link } from 'react-router-dom'
+import styled from 'styled-components';
 
-import CoinsList from '../CoinsList'
+import AllCoins from '../AllCoins'
 import CoinPage from '../CoinPage'
 
 import data from '../../data'
+
+
+const Header = styled.div`
+  background: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+`
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  font-weight: 600;
+  color: red;
+`
+
 
 const App = () => {
 
@@ -51,18 +68,17 @@ const App = () => {
   const handleCoinSelect = (e) => {
     e.stopPropagation()
     const id = e.currentTarget.attributes.getNamedItem('data-id').value
-    const selected = coins.find(coin => coin.id == id)
+    const selected = coins.find(coin => coin.id === Number(id))
     setSelectedCoin(selected)
   }
 
 
 
   const initialCoinsFetch = async () => {
-    const result = await fetch(`/coins`)
+    await fetch(`/coins`)
       .then(res => res.json())
+      .then(data => setCoins(data))
       .catch(err => console.error(err))
-    
-    setCoins(result)
   }
 
   /*useEffect(() => {
@@ -71,11 +87,14 @@ const App = () => {
 
   return (
     <div>
+      <Header>
+        <StyledLink to="/coins">Top 100</StyledLink>
+      </Header>
 
       <Route 
         exact path="/coins" 
         render={() => (
-          <CoinsList  
+          <AllCoins  
             coins={coins} 
             inputName={inputName} 
             sortByName={sortByName} 
@@ -86,12 +105,12 @@ const App = () => {
         )}
       />
 
-
-
       <Route 
         path={`/coins/${selectedCoin.name}`}
         render={() => (
-          <CoinPage selectedCoin={selectedCoin}/>
+          <CoinPage 
+            selectedCoin={selectedCoin}
+          />
         )}
       />
 

@@ -1,21 +1,32 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
-import './coincard.css'
+
+const StyledLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  width: 18%;
+  margin: 1%;
+  border: 1px solid #333;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+`
+
+const Card = styled.div`
+`
+
+const H3 = styled.h3`
+`
 
 const CoinCard = ({coin, handleCoinSelect}) => {
-  let date = new Date(coin.date_added)
   return (
-    <Link to={`/coins/${coin.name}`} className="card" data-id={coin.id} onClick={handleCoinSelect}>
-      <ul>
-        <li>name: {coin.name}</li>
-        <li>id: {coin.id}</li>
-        <li>symbol: {coin.symbol}</li>
-        <li>slug: {coin.slug}</li>
-        <li>date_added: {date.toDateString()}</li>
-        <li>cmc_rank: {coin.cmc_rank}</li>
-      </ul>
-    </Link>
+    <StyledLink to={`/coins/${coin.name}`} data-id={coin.id} onClick={handleCoinSelect}>
+      <Card>
+        <H3>{coin.name} #{coin.cmc_rank}</H3>
+      </Card>
+    </StyledLink>
   )
 }
 
